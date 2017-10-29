@@ -1,0 +1,140 @@
+/*Prototype 2 Stylsheet*/
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+body{
+	background: #ececec;
+}
+
+.dropzone-text{
+}
+
+.center {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+
+.canvas {
+	position:absolute;
+	overflow: hidden;
+	z-index: 3;
+}
+
+
+.overlay-text {
+    overflow-wrap: break-word;
+    font-family: "Open sans", sans-serif;
+    font-weight: 100;
+  	font-size: 30px;
+}
+
+.main{
+	margin-top:20px;
+	border-radius: 5px;	
+	background: white;
+	padding: 20px;
+}
+
+.overlay {
+	cursor:default;
+	pointer-events:none;
+}
+
+.timecode {
+	display: inline-block;
+}
+
+
+
+
+#dragdrop-container {
+
+	height: 300px;
+	position: relative;
+}
+
+#dragzone {
+	padding: 0;
+	height: 250px;
+	margin: 25px;
+	position: absolute;
+	border-style: dashed;
+}
+
+#image-preview{
+	height: 100%;
+}
+
+#image-input{
+}
+
+#i-video-container {
+	width: auto;
+}
+
+#preview-container{
+	height:250px;
+}
+
+#overlay-container {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+#webgl {
+}
+
+#webgl-container {
+	position:absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+}
+
+#viewport {
+    position: relative;
+    height: 360px;
+    width: 640px;
+    margin: auto;
+}
+
+#video {
+    position: absolute;
+    z-index:0;
+}
+
+#interface-container{
+	position: relative;
+}
+
+#interface {
+
+	margin: auto;
+}
+

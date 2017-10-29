@@ -1,0 +1,267 @@
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+body{
+	margin: 0px;
+	font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+	color:white;
+	font-weight: lighter;
+
+	background-position: center; 
+	background-size: cover;
+	background-image: url(../img/background_1.jpg);
+}
+
+a{
+	color:white;
+	text-decoration: none;
+}
+
+a:hover{
+	color: rgba(255,255,255,.3);
+	text-decoration: none;
+}
+
+a:active, a:visited{
+	color: rgba(255,255,255,.7);
+	text-decoration: none;
+}
+
+[class*=col-]{
+	text-align: center;
+
+	/**
+	border-style: solid;
+	border-color: black; 
+	**/
+}
+
+h1, h2, h3, h4, h5, h6{
+	margin-top: 0px;
+}
+
+
+table{
+	width:100%;
+	text-align: left;
+}
+
+input {
+	background-color: rgba(255,255,255,0);
+	color: white;
+	border-width: thin;
+}	
+
+/**.block-vertical{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}**/
+
+.container-fluid {
+  	padding-top: 50px;
+
+}
+
+/**.column-images{
+	position: relative;
+
+}**/
+
+.flaticon-facebook7, .flaticon-google110, 
+.flaticon-mail22, .flaticon-social71{
+	font-size: 50px;
+}
+
+.flaticon-restaurant31{
+	font-size: 100px;
+}
+
+.image{
+	border-radius: 50%;
+	max-width: 100%;
+}
+
+.jumbotron{
+	padding: 0px;
+	margin: 0px;
+	background-color: transparent;
+}
+
+.menu-link{
+	font-size: 36px;
+	margin-bottom: 0px;
+}
+
+.navbar{
+	background-color: rgba(0,0,0,.7);
+	border-style: none;
+}
+
+.reserve-img{
+	max-width:100%;
+	max-height:100%;
+	margin-top: 20px;
+}
+
+.row{
+
+}
+
+.starter-template {
+  	padding: 40px 15px;
+  	text-align: center;
+}
+
+.text-left{
+	text-align: left;
+}
+
+.text-left a{
+	text-decoration: underline;
+	font-size: 16px;
+	color: #666;
+}
+
+.video-container { 
+	position: relative; /* keeps the aspect ratio */ 
+	padding-bottom: 56.25%; /* fine tunes the video positioning */ 
+	overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed { 
+	position: absolute; 
+	top: -.2%; 
+	left: -.2%; 
+	width: 100.4%; 
+	height: 100.4%;
+}
+
+#persona-1-video{
+	padding-bottom: 53.03%; /* fine tunes the video positioning */ 
+}
+
+#persona-2-video{
+	padding-bottom: 54.03%; /* fine tunes the video positioning */ 
+}
+
+#persona-3-video{
+	padding-bottom: 59.77%; /* fine tunes the video positioning */ 	
+}
+
+
+#main-floating{
+	background-color: rgba(0,0,0,.7);
+}
+
+#column-reservation{
+	padding:2% 15px;
+}
+
+#column-menu{
+	margin:auto;
+}
+
+#column-social-links{
+
+}
+
+#email-form{
+
+}
+
+#email-signup-deal{	
+	margin: 20px;
+	padding: 10px;
+	border-style: dashed;
+	border-color: white;
+	border-radius: 10px;
+	border-width: thick;
+}
+
+#location{
+
+	text-align: center;
+}
+
+
+#mc-embedded-subscribe, input[type="submit"], .button{
+	clear: both;
+	background-color: rgba(255,255,255,.3);
+	border: 0 none;
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: bold;
+	height: 32px;
+	line-height: 32px;
+	margin: 0 5px 10px 0;
+	padding: 0 22px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: top;
+	white-space: nowrap;
+	width: auto;
+}
+
+#mc-embedded-subscribe{
+	background-color: rgba(255,255,255,.3);
+}
+
+
+#takeout{
+
+}
+
+#title{
+	text-align: center;
+}
+
+#title-menu{
+
+}
+
+
+footer {
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	text-align: center;
+	background-color: rgba(0,0,0,.7);
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	#location{
+		margin-bottom: 50px;
+	}
+
+	#second-image-div{
+		height: 450px;
+	} 
+	#second-image{
+		margin-top: 120px;
+	}
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+	#main-floating{
+		margin-top: 50px;
+		margin-bottom: 50px;
+	} 
+	footer{
+		background-color: rgba(0,0,0,.0);
+	}
+}
+
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { 
+
+}

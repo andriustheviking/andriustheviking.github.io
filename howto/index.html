@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Google Vision API Guide</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Theme CSS -->
+	<link href="css/freelancer.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+<div id="skipnav"><a href="#maincontent">Skip to main content</a></div>
+
+	<!-- Navigation -->
+	<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="#page-top" style="text-transform:none">Google Vision API Walkthrough</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="hidden">
+						<a href="#page-top"></a>
+					</li>
+					<li class="page-scroll">
+						<a href="#portfolio">Overview</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#about">API Key</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#contact">POST</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#detectLabels">Labels</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#detectFaces">Faces</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<!-- Header -->
+	<header style="background-color:white; color:#2c3e50">
+		<div class="container" id="maincontent" tabindex="-1">
+			<div class="row">
+				<div class="col-lg-12">
+					<img class="img-responsive" src="img/profile.png" alt="" style="height:250px">
+					<div class="intro-text">
+						<h1 class="name" style="text-transform:none">Google Vision API Walkthrough</h1>
+						<span class="skills">A Guide to Using Google Vision's API with Javascript</span>
+						<div style="color:white">
+							<br>-<hr class="star-primary:after dark">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Portfolio Grid Section -->
+	<section id="portfolio" style="padding-top:0px">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Overview</h2>
+					<!-- <hr class="star-primary:after dark"> -->
+					<br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>Google provides an enormous array of useful APIs on its Cloud Platform. Google Cloud Vision is one of them. It's a computer vision API that allows user to analyze images in various different ways. This guide is meant as a walkthrough to help you build a tool to send images to the API and parse the responses, all using Javascript. By the end you'll have built a small website that will allow a user to either submit an image URL or upload one from their computer, and send it to Google Cloud Vision with either one of two requests, Label Detections or Face Detection. </p>
+
+					<p>You can read more about about the API from <a href="https://cloud.google.com/vision/"> Google's Official Documentation.</a></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<p>This guide is broken up in the following steps:</p>
+					<ol>
+						<li>Obtaining an API Key</li>
+						<li>The API Request and Response</li>
+						<li>Sending an Image for Label Detection</li>
+						<li>Implimenting Face Detection</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<br>
+					<p>We'll assume a basic understanding of manipulating the DOM with Javascript, parsing JSON and the concepts behind URI and Base 64 encoding.</p>
+					<br>
+					<p class="text-center">Now let's begin!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section class="success" id="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Obtaining An API Key</h2>
+					<hr class="star-light:after">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>Google Cloud already has thorough documentation on obtaining an API key. The following is intended as a supplement to their documentation.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p><b>Step One:</b> Proceed through the first three steps of enabling the API. You can get there using <a href="https://cloud.google.com/vision/docs/before-you-begin">this link.</a></p>
+					<img src="img/EnableAPI.png" alt="enabling the api">
+					<br>
+					<br>
+					<p><b>Step Two:</b> Once the API is enabled you need set up Credentials to access the API key.</p>
+					<p>Go to API Manager and select “Credentials” to create credentials and get your API key.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-md-offset-2">
+					<div style="width:269px; display:inline-block"><img src="img/credentials_2.png" "credentials tab"></div>							
+				</div>
+				<div class="col-md-3 col-md-offset-1">
+					<div style="width:427px; display:inline-block; margin-top:25px"><img src="img/credentials_1.png" alt="credentials message"></div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+              		<br>
+              		<p>You will then have your API key!</p>
+              		<div style="width:632px; margin:0 auto"><img src="img/apikey.png"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>POST Request and Response</h2>
+					<hr class="star-light:after dark">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>The POST Request</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<p>Now that we have our API key, we can use Javascript to send images for the computer vision algorithm to analyze. We do this using <code>POST</code> requests. The official documentation contains an overview of the API requests, which you can read <a href="https://cloud.google.com/vision/docs/request">here</a>. But we'll show exactly how to write our own.</p>					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+
+					<p>The most straight-forward way to send out <code>POST</code> requests is to use the <code>XMLHttpRequest()</code> constructor. This constructor creates an object that allows us to send asynchronous requests from a client (i.e. your web browser) to a server. In this case, the server we are sending to is Google's Cloud.</p>
+					<p>In order to create and send our requests, let's write a function called <code>googleVisionRequest</code> which takes an object, <code>payloadObj</code> that will compose the body of the request, and also accepts an object <code>button</code>, which will allow us to disable the submit button while awaiting our response. </p>
+					<p>Here's what it will look like:</p>
+					<script async src="https://jsfiddle.net/andriustheviking/Lu8mq294/7/embed/js/"></script>
+					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<p>Let's go through each line:</p>
+					<ul>
+						<li><code>var req = new XMLHttpRequest();</code><br>This line creates the an object to send the request.</li>
+						<li><code>req.open("POST", "https://vision.googleapis.com/v1/images:annotate?key=" + yourApiKey, true);</code><br>Here we specify the request type and the url. For this api, we can pass our API key as a query string. Finally, <code>true</code> specifies that the request be asyncronous.</li>
+						<li><code>req.setRequestHeader("Content-Type", "application/json");</code><br>This sets the request header.</li>
+						<li><code>req.addEventListener("load", function() {</code><br>This specifies the handler that fires when we receive a response:
+							<ul>
+								<li><code>button.disabled = false;</code> <br>First, we want to re-enable the submit button.</li>
+								<li><code>if (req.status >= 200 &amp&amp req.status &lt 400) {</code> <br>This expression indicates our request was received. </li>
+								<li><code>displayResponse( JSON.parse(req.responseText).responses, payloadObj.requests )</code> <br>Here <code>displayResponse</code> is a function we will write to "display the response". It will require the original payload object, to help us parse the response.</li>
+								<li>The expression, <code>JSON.parse(req.responseText).responses</code> returns the response array. We'll explain more about that later.</li>
+								<li><code>else{ ... </code> <br>Here we specify an alert when there is an error, and log the reponse to the console.</li>
+							</ul>	
+						</li>
+						<li><code>req.send( JSON.stringify(payloadObj) );</code> <br>This sends the request, and passes a JSON string as the <code>POST</code> request body.</li>
+						<li><code>button.disabled = true;</code> <br>Finally, we make sure to disable the submit button so as to prevent asecond request before our response.</li>
+					</ul>				
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p style="text-align:center">And we're done!</p>
+					<p style="text-align:center">Well, not really. Now we need to go over...</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>The POST Request Body</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">					
+					<p>Now you might already be asking yourself, what exactly was <code>payloadObj</code>? Well, the Google Vision API requires a JSON object with a very specific set of properties that tell the server exactly what to do. 
+					</p><p>Here's an example from the official documentation of the payload to analyze an image sent as a Base-64 encoded data string, asking for the top 10 labels the algorithm returns in order of confidence:</p>
+					<script async src="https://jsfiddle.net/andriustheviking/ae68pfyp/1/embed/js/"></script>
+					<p>Yikes, that's a lot of arrays of objects of arrays of objects. No worries. We'll go through and make sense of it.</p>
+					<ul>
+						<li><code>requests:</code><br>The first and only property of the payload object is an array of requests, with each element being a request made to the server. So we can actually include multiple individual requests in one HTTP POST request. For the purposes of this tutorial, we will only send one request at a time.</li>
+						<li>Each request object in the <code>requests</code> array is composed of two properties:
+							<ul>
+								<li><code>image:</code> specifies the source image. You can send a URI of a publicly accessable image, or send the image itself as a Base-64 encoded string. However these two image source types have different key-value pairs:
+									<ul>
+										<li>To send a public URI of an image, the <code>image:</code> object needs to contain only one property, <code>source:</code>, which itself is an object that contains the property <code>imageUri:</code>, which contains the image link. <br> So the <code>image:</code> object inside the <code>requests:</code> object would look like this: 
+										<code>image: { source: { imageUri: "http://..."} }</code></li>
+										<li>To send a Base-64 encoded data string of the <code>image:</code> object just needs to contain the property <code>content:</code> which itself contains the data string, like above.</li>
+									</ul>	
+								</li>
+								<li><code>features:</code> is an array of objects that contain the specifications for each type of detection we would like Google Vision to perform on our image. The API has many different detection types, but we will only focus on <code>LABEL_DETECTION</code> and <code>FACE_DETECTION</code></li>
+							</ul>
+						</li>
+					</ul>
+					<p>Now that we've covered the request, let's go over the response</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>The API Response</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+				<p>The response contains a JSON string with the property <code>responses:</code>, which is an array of responses for each request object element we sent in the <code>requests:</code> array. The responses for each detection type are all slightly different. Because we'll only be sending <code>LABEL_DETECTION</code> and <code>FACE_DETECTION</code> requests, we'll just go over those.</p>
+				<ul>
+					<li><code>labelAnnotations:</code> is an array of objects that contains the response for our <code>LABEL_DETECTION</code> request. The array contains an element for the number of <code>maxResults</code> requests. Each object in the array contains the properties: <code>mid:</code>, <code>description:</code> and <code>score:</code>. Where <code>mid:</code> is one of Google's "machine-generated identifiers", <code>description:</code> is the label that describes the image and <code>score:</code> is a measure of confidence given by the algorithm represented as a number between 0 and 1. <br> <a href="https://cloud.google.com/vision/docs/labels">You can read more detail about label response in the official documentation</a>.</li>
+					<li><code>faceAnnotations:</code> is an array of objects that correlate to the number of faces recognized in a <code>FACE_DETECTION</code> request. These objects contain a wide array properties, the likelyhood of emotion detected for each individual and the position of individual face "landmarks" such as the eys, nose, etc. We will just be using <code>boundingPoly:</code> an object that contains the vertices of a square around each face. <br><a href="https://cloud.google.com/vision/docs/detecting-faces">You can read more about the face detection reponse in the official documentation</a>.</li>
+				</ul>
+				<p>Now that we've covered the request and response, let's create some functions to generate the request body object and display the response.</p>
+			</div>
+		</div>
+	</section>
+	<section id="detectLabels" class="success">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Detecting Image Labels</h2>
+					<hr class="star-light:after">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">	
+					<p>With the concepts covered, its time to build a website that will send an image to the Google Vision API for label detection. Because we want to be fancy, we'll allow the user the to either provide a URL of an image, or upload an image from their computer.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>HTML</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">	
+					<p>This part is pretty easy, as Javascript is doing all the heavy lifting. All we need is an input to receive and submit a URL, an input to select and submit a file, an <code>img</code> element to display the selected image, and a <code>div</code> element to display the labels.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/x7hr5dtw/embed/html/"></script>					
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>Creating the Request Body</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>With our HTML up and running, we can work on some functionality that will build the request body object base on our user's input. Let's start by creating an object called <code>payload</code>. In it, we just need to initialize the <code>requests:</code> array.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/gpa4ydLw/2/embed/js/"></script>
+					<br>
+					<p>Now we need to write a function to populate the <code>request:</code> array in <code>payload</code> with the appropriate information. 
+					</p><p>Since we're allowing the user to submit <i>either</i> a URL or an uploaded image file, let's create two functions, <code>addUrlRequest()</code> and <code>addBase64ImgRequest()</code> that call a more general function <code>addRequest()</code>.</p>
+					<script async src="http://jsfiddle.net/andriustheviking/qL7vr8bz/1/embed/js/"></script>
+					<br>
+					<p>As you can see, <code>addUrlRequest()</code> and <code>addBase64ImgRequest()</code> create the specific objects required for the two different API requests. They then pass those objects to <code>addRequest()</code> which places them in the image object of the request array. It takes the rest of the relevent information and pushes it to our API request array.</p><p>For the moment, we're specifying the request type as only <code>LABEL_DETECTION</code>, but we've written these functions so that can easily be changed.</p>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>Getting the user Data</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>With the request body builder functions complete, we can now receive the user's input and send our request to the server.</p>
+					<p>At this point all we need to do is get that user submitted URL, pass it to <code>addUrlRequest()</code> along with the number of responses and then pass the payload to <code>googleVisionRequest()</code>. We then clear out the payload requests so that our next POST request doesn't include the old information.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/jkopw292/embed/js/"></script>
+					<br>
+					<br>
+					<p>The code to send the image data from a user's uploaded image is very similar, but requires encoding the image file into a Base-64 string. To do that, we use the <code>FileReader()</code> constructor and use its <code>.readAsDataURL()</code> method. <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL"><br>Mozilla provides an example</a> we can conveniently borrow, to place the user's uploaded image into our <code>img</code> element as soon as the user selects an image from their computer. When the file loads, we can pass the already encoded string to our <code>addBase64ImgRequest()</code>.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/jkopw292/4/embed/js/"></script>
+					<p><b>NOTE:</b><br>We have to split the encoded Base-64 string around the comma when we pass it to <code>addBase64ImgRequest()</code> using <code>reader.result.split(",")[1]</code> This removes the header specify the data type and encoding. Otherwise, our data string would begin with <code>"data:image/jpeg;base64,...</code> and the Google Vision API expects <b>ONLY</b> the Base 64 string.</p>
+					<p>With that in place, we can write our handler to send the Base 64 request when the user clicks Submit.</p>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>Displaying the Response</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>Now that we've sent a proper request and gotten a response, lets get to work on that <code>displayResponse</code> function. We don't need anything too fancy, as we just need to populate a div with an array's object's key-value pairs</p>
+					<script async src="https://jsfiddle.net/andriustheviking/pL8kqwbw/embed/js/"></script>
+					<p>As you can see, our function accepts the <code>responses:</code> array and the <code>requests:</code> array, and populates the <code>div</code> with <code>id="responseDiv"</code> with the responses we're interested in. It also checks to see whether we sent a URL, or Base-64 image data. If its the former, it adds that url as the source of our <code>img</code> element.</p>
+					<br>
+				</div>				
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>The Result</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>And we're done! You should now be able to send images to Google's Computer Vision API. Here's what the final product should look like.</p>
+					<div><img src="img/brittany.png"></div>
+				</div>				
+			</div>
+		</div>
+	</section>
+	<section id="detectFaces">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Detecting Faces</h2>
+					<hr class="star-light:after dark">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>With the core functionality complete, it's time to add face detection. The Google Vision API provides a lot information with the <code>FACE_DETECTION</code> request. However we'll just be identifying the faces and drawing boxes them in the picture. Full documentation on this request can be read about <a href="https://cloud.google.com/vision/docs/detecting-faces">here</a>.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>HTML</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>The only addition to our HTML is to add a <code>select</code> element for the user to specify the request type.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/7dtuozn5/2/embed/html/"></script>
+					<br><br><p>We then modify our addRequest function. Instead of receiving a "requestType" from its calling functions, we just get the request type directly from the <code>select</code> element's value. </p>
+					<script async src="https://jsfiddle.net/andriustheviking/7dtuozn5/2/embed/js/"></script>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3>The Face Detect Response</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<p>As was mentioned earlier, the response from <code>DETECT_FACES</code> request comes with a lot of information. The property containing this information is called <code>faceAnnotations</code>. It is an array of objects, one for each face detected in the image. These objects contain all the properties detected for each face. <code>boundingPoly:</code> has a property inside called <code>vertices</code> which contains an array of the pixel location for each corner of the bounding box surrounding the detected face. This is given as an x, y coordinates, measured from the left and top of the image for x and y respectively.
+					</p>
+					<p>With this knowledge, we can create a function that overlays <code>div</code> elements around each face on the <code>img</code> element. We'll give the divs a yellow border for visibility.</p>
+					<script async src="https://jsfiddle.net/andriustheviking/4p7amL7c/1/embed/js/"></script>
+					<p>This function may seem complicated at first, but it will quickly makes sense as we go through it.</p>
+					<ul>
+						<li>First we get an array of faces detected, in the <code>faceAnnotations</code> array, and iterate through it using a for loop.</li>
+						<li>Then we grab the <code>vertices</code> of each bounding box. These are represented as an array of objects, each with an x and y property</li>
+						<li>The <code>imgDiv</code> will be used to place each <code>div</code> surrounding each face. <code>imgPreview</code> simply being a container div for the <code>img</code> element</li>
+						<li>Next, we need to first save the preview image as a variable, then create a new <code>img</code> element and give it the same source as our preview. However we will <i>not</i> be adding this to the DOM. Instead this is to get the <i>ratio</i> between our smaller preview image, and the original image itself. That way, we can place each bounding box accurately in the preview image.</li>
+						<li>We then calculate the offsets and dimensions of each <code>div</code>, insert the <code>div</code> inside the <code>imgContainer</code> and apply the <code>style</code> attribute containing the dimensions and details.</li>
+					</ul>
+					<p>We now simply add this function into our original <code>displayResponse()</code> function using an if/else statement to check whether the response contains <code>labelAnnotations</code> or <code>faceAnnotations</code>. And that's it!</p>
+					<p>After you're done your new website should work like this:</p>
+					<div><img src="img/family.png"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="text-center">
+		<div class="footer-above">
+			<div class="container">
+				<div class="row">
+					<div class="footer-col col-md-8 col-md-offset-2">
+						This website was made as a project for Oregon State University class CS 290
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-below">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-offset-2 col-lg-4">
+						Copyright &copy; Andrius Kelly
+					</div>
+					<div class="col-lg-4">
+						Using Bootstrap Template Freelancer
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+		<a class="btn btn-primary" href="#page-top">
+			<i class="fa fa-chevron-up"></i>
+		</a>
+	</div>
+
+
+
+	<!-- jQuery -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+
+	<!-- Theme JavaScript -->
+	<script src="js/freelancer.min.js"></script>
+
+</body>
+
+</html>

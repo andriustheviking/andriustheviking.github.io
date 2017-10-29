@@ -1,0 +1,27 @@
+body{
+
+}
+
+#canvas {
+	height: 100vh;
+}
+
+#character, #interface{
+	float: left;
+}
+
+.hsl_text{
+	width: 30px;
+}
+
+.selector_label {
+	font-weight: bold;
+}
+
+.selector_box {
+	margin: 10px;
+    background-color: #b6dbfd;
+    padding: 5px;
+    border-radius: 5px;
+}
+
