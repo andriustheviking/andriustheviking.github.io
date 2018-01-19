@@ -4,7 +4,7 @@
 	<title>Working Prototype 3</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<script type="text/javascript" src="./js/jquery-3.1.1.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="./js/popcorn.min.js"></script>
 	<script type="text/javascript" src="./js/three.min.js"></script>
 	<script type='text/javascript' src="./js/easing.js"></script>
@@ -27,7 +27,7 @@
 			</div>
 			<div class='row'>
 				<div id="dragdrop-container" class="form-group col-xs-6 col-xs-offset-3">
-					<div class='row'>
+					<div class='row center-block'>
 						<div id="dragzone" class='col-xs-10'>
 							<div id='preview-container'>
 								<div id='image-placeholder'>
@@ -41,8 +41,9 @@
 			<div class='row'>
 				<div class="form-group col-xs-4 col-xs-offset-4">
 					<p class='dropzone-text' style="text-align:center" >or</p>
-					<label class="btn btn-primary btn-file">
-						Click to upload<input type="file" name="userImage" accept="image/*" id="image-input" class='btn btn-primary btn-file'>
+					<label class="btn btn-primary btn-file center-block">
+						Click to upload
+						<input type="file" name="userImage" accept="image/*" id="image-input" class='btn btn-primary btn-file'>
 					</label>
 				</div>
 			</div>			
@@ -53,7 +54,7 @@
 			</div>
 			<div class='row'>
 				<div class="form-group col-xs-4 col-xs-offset-4">
-					<button type="button" id="btn-create" class="btn btn-success">Create Video</button>
+					<button type="button" id="btn-create" class="btn btn-success center-block">Create Video</button>
 				</div>
 			</div>
 		</div>
@@ -64,7 +65,6 @@
 						<source src="./video/big_buck_bunny.mp4" type="video/mp4">
 						<source src="./video/big_buck_bunny.ogv" type="video/ogv">
 						<source src="./video/big_buck_bunny.webm" type="video/webm">
-						<!--MUST ADD OGV AND WEBM files-->
 						Your browser does not support the video tag.
 					</video>
 					<div id="webgl-container" class="overlay"></div>

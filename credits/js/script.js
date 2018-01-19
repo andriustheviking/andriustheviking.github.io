@@ -252,7 +252,7 @@ $(document).ready(function(){
 		$glContainer.append(renderer.domElement); //insert into $glContainer		
 	};
 	
-	//function to be called when Play/Pause button is pressed
+
 	function playPause(){
 	    if ($video.paused) {
 	        $video.play();
@@ -286,7 +286,7 @@ $(document).ready(function(){
 		handleFiles(files[0]);
 	}
 
-	//create image preview, returns image variable
+	//create image preview
 	function handleFiles(file){
 		//make sure file is an image
 		var imageType = /^image\//;
@@ -301,6 +301,7 @@ $(document).ready(function(){
 		$dragZone.html(img);
 
 		$imageName.html(file.name);
+		$dragZone.css("border-style", "none");
 
 		var reader = new FileReader();
 		
@@ -316,10 +317,13 @@ $(document).ready(function(){
 		})(img);
 		
 		//stores userImage as $object		
-		userImage = $('.image-preview');	
+		userImage = $('#image-preview');	
 		
 		//adds alt tag
 		userImage.attr('alt',file.name);
+
+
+
 
 		return true;
 	}
