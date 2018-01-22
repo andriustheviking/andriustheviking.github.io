@@ -30,7 +30,7 @@ body{
 }
 
 .col-decoration{
-  border-bottom: 1px #B00021 solid;
+  border-bottom: 1px darkred solid;
   height: 30px;
   margin-bottom: 30px;
 }
@@ -135,7 +135,7 @@ display: none;
 .navbar, .navbar-inverse {
   background-color: white;
   border-style: thin;
-  border-color: #B00021
+  border-color: darkred
 }
 
 .nav{
@@ -152,16 +152,16 @@ display: none;
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
-  background-color: #B00021;
+  background-color: darkred;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   background-color: white;
-  color: #B00021;
+  color: darkred;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #B00021;
+  color: darkred;
 }
 
 /*.navbar-collapse[aria-expanded="true"] {
@@ -196,7 +196,7 @@ display: none;
   }
 
   .navbar-inverse .navbar-nav > li > a {
-    color: #B00021;
+    color: darkred;
   }
 
   .navbar{
