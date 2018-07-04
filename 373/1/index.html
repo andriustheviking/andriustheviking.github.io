@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Google Vision API Guide</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 1 Write-Up</h2>
+      <h4>Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Malware Overview</h1>
+    </div>
+
+    <h2>Malware</h2>
+    <p><b>Malware</b> is broadly defined as any malicious software. There are many different types of malware: <b>Viruses</b> are parasitic, in that they use or corrupt other files, can be polymorphic (changing with each iteration) and self-replicating (Worms). <b>Trojans</b>, named after the Greek legend, allow backdoor access or are otherwise designed to grant another user or software access to information. <b>Potentially Unwanted Programs</b> are programs are programs that are considered unwanted by the user, though they may not have any qualities of a virus or trojan. Adware, Spyware and other bundled software are examples of PUP. Security organizations send and safe malware in zips, encrypted with the key “infected”. </p>
+
+    <h2>Hash</h2>
+    <p>Hashing is used to identify each malware program. Antivirus software uses malware hashes to identify infections. An <b>imphash</b> is the hash of a malware’s import libraries and can be used to classify malware into families.</p>
+
+    <h2>Naming</h2>
+    <p>Malware naming convention is intended to create a human-readable way to distinguish malware. Though naming can vary between institutions, the Computer Antivirus Research Organization provides the following standard:</p>
+    <div><img class="center" src="../img/image001.png">
+    <span class="center"><i>Source: https://www.microsoft.com/en-us/wdsi/help/malware-naming</i></span></div>
+
+    <h2>Waterhole Attack</h2>
+    <p>A waterhole attack is an attack into a system through some weaker intermediary. For example, spoofing an email of a client or vendor.</p>
+
+    <h2>System Tools </h2>
+    <p>I was surprised to learn that basic Windows System tools can be effectively used to identify and track malware. <br>
+      <ul>
+        <li><b>Process Monitor </b>tracks all process system calls and can create a digital “paper trail” of an executable file to show exactly what it is doing inside the operating system.</li>
+        <li><b>Process Explorer</b> can also show system calls and threads as they are executed in real-time.</li>
+        <li>
+          <b>System Registry</b> is the hierarchical database that contains information critical to Windows. It can be used to show the options granted to processes. For example, in Lab 1, we showed that the malware’s executable <em>svchest.exe</em> was designated to run on boot. <b>regedit</b> will bring up the system registries.</li>
+        <li>Search is a simple tool to find the files created by malware shown by Process Monitor</li>
+      </ul>
+    </p>
+
+    <h2>Advance Persistent Threat</h2>
+    <p>An APT is a targeted attack against a specific entity by an individual or organization.<br>
+      An <b>APT Kill Chain</b> typically involves the following steps:<br>
+      <ol>
+        <li><b>Reconnaissance:</b><br>
+        This can be passive or active. Passive Recon involves gathering any public information relevant to the attack. LinkedIn and job postings can be vectors for Passive Recon which could indicate how a network functions. Active Recon involves interacting with the system directly in order to learn vulnerabilities. Port scanning and junk email can be used in Active Recon.</li>
+        <li><b>Weaponization:</b><br>
+        This step involves the creation of the malware based on the reconnaissance gathered. Malware is typically created with libraries that exploit known system vulnerabilities. A very advanced organization could also code a program specifically for a system.</li>
+        <li><b>Delivery:</b><br>
+        This is the mode of delivery to the system. It could be via USB stick, email, fake wifi, etc. It could require an internal bad actor or negligence.</li>
+        <li><b>Exploitation:</b><br>
+        This is the execution of the malware</li>
+        <li><b>Installation:</b><br>
+        This is the malware installing its backdoor or permissions necessary to obtain its goal.</li>
+        <li><b>Command and Control:</b><br>
+        This is the stage of full access of the malware to its target.</li>
+        <li><b>Actions on Objective:</b><br>
+        The malware or intruder achieves its intended goal.</li>
+      </ol>
+    </p>
+
+    <h2>Dynamic Analysis</h2>
+    <p>Dynamic Analysis is done by letting malware execute as intended in a controlled environment, and observing its behavior and changes in the system. This is often done with a Virtual Machine, using the system tools mentioned above. However, some malware is designed to detect whether its running in a VM, and will terminate execution. If the VM is insufficient, the malware can be run and observed on a real computer, called a “goat”.</p>
+
+    <h2>Static Analysis</h2>
+    <p>Static Analysis is done by inspecting the malware file itself. By examining the code directly with a program like FileInspector or IdaPro, the malware can be reverse-engineered. </p>
+    <p><b>String Dump</b> is a method of SA done by printing out the strings stored in the code. This can provide a clue as to what the malware is doing. For example, if the code contains a web address, it likely is going to make a request to that address. However, malware code often obfuscates its strings by encrypting them in some way. They can use bit flipping, ROT13 (rotating chars), Base64 (technically not encryption), or XOR cipher. Depending on the method of encryption, finding the strings can be trivial or extremely difficult.</p>
+  </div>
+</body>
+

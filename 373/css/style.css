@@ -1,0 +1,20 @@
+.header {
+	text-align:center;
+	margin-top: 50px;
+}
+
+.center {
+	margin: auto;
+	display: block;
+	text-align: center;
+}
+
+.title{
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.container{
+	margin-bottom: 50px;
+}
