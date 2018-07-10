@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 2</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 2 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Digital Forensics</h1>
+    </div>
+    <p style="text-align:center">As an investigator: You don’t prove guilt or innocence. Only what happened on the system.</p>
+    <h3>The Forensics Process</h3>
+    <p>The forensics process can be broken down into these three generalized steps:</p>
+    <b><ol>
+      <li>Evidence Acquisition</li>
+      <li>Investigation and Analysis</li>
+      <li>Reporting results</li>
+    </ol></b>
+    <br>
+    <h4>Evidence Acquisition</h4>
+    <p>Evidence is anything that can prove or disprove a fact. In digital forensics, this includes any device’s network, operating system, database, peripherals, removable media. Additionally, human testimony can be an important part of evidence, either as a direct witness or expert.</p>
+    <p>The acquisition step involves both the seizure of physical devices and media, as well as the copying and freezing device states. Like any other crime scene, special care must be taken in acquiring evidence so as to minimize any corruption to the evidence itself. This even includes leaving devices plugged in to their power sources to as to retain their volatile memory states. However, evidence collectors must make sure to block any further network traffic so as to prevent evidence corruption from an outside source.</p>
+    <p>Forensic journals should be kept to document all steps throughout the process. They should be written in pen and paper, so as to maintain credibility and prevent later editing.</p> 
+    <br>
+    <h4>Investigation and Analysis</h4>
+    <p>As with the Acquisition of evidence, documentation is important to maintaining the integrity of the investigation. According to Locard’s Exchange Principle, there is always a transference of materials when two objects come into contact. In digital forensics, that means there is no way to interact with a live system without altering it. As a result, investigators must take into account things like memory usage when applying tools to extract and analyze data.</p>
+    <p>Legal consideration must also be taken into account during an investigation. In most jurisdictions, there are privacy restrictions put in place that can limit the scope of information gathered an analyzed. For instance, in a criminal investigation, a search warrant must be requested to access personal email accounts. Alternatively, many private corporations have privacy policies either with their employees, or with client information.</p>
+    <p>We can outline methods of analysis by taking a look at the tools commonly used in forensics investigations.</p>
+    <ul>
+      <li><b>Memory dumping</b> There are various different tools used to copy each bit of memory into some digital media for later analysis. These can exist as software, or stand-alone devices.</li>
+      <li><b>Volatility</b> is a an open source memory forensics tool used for analyzing memory dumps. It runs in the command line and can be used to search for byte patterns in memory, in order to retrieve information. Because it’s open source, and written in Python, it has deep support for many different plug-ins. </li>
+      <li><b>FTK Imager</b> is a disk imaging program that creates a duplicate of a hard disk. It ensures the integrity of the copied image by comparing MD5 hashes. </li>
+      <li><b>photorec_win</b> is an open source tool that searches through a disk image for files, without using the file system. That way, it is able to recover “deleted” files, so long as they are not overwritten.</li>
+      <li><b>Sleuthkit</b> is a low-level file analysis tool that works on both Windows and Unix systems. According to its documentation, it has support for NTFS, FAT, ExFAT, UFS 1, UFS 2, EXT2FS, EXT3FS, Ext4, HFS, ISO 9660, and YAFFS2 file systems.</li>
+    </ul>
+    <br>
+    <h4>Reporting results</h4>
+    <p>Reporting results is a critically important part of the forensic process. It requires skill to translate the results so that a lay-person can understand, and importantly, implement any recommendations. The target audience could be a manager without technical expertise, a judge or lawyer with a high standard of scrutiny, or a jury with no technical or legal experience.</p>
+    <p>If the investigation is criminal, it is important that the report conform to legal terminology and not contain judgments reserved the court. Specific terms have legal precedence and often have specific definitions that must be invoked correctly.</p>
+
+    <br>
+    <h2 class="center"><a href="https://www.ietf.org/rfc/rfc3227.txt"> RFC 3227 </a></h2>
+    <p>The IETF outlines the “Guidelines for Evidence Collection and Archiving” in Request for Comments number 3227, published in 2002. This includes general best practices and is an effective outline for the digital forensics evidence gathering process.</p>
+    <p>Here are some highlights from the following sections:</p>
+
+    <h4>2.0 Best Current Practice</h4>
+    <p>This outlines some commonsense best practices that should be adhered to in order to maintain reliable evidence and documentation. 
+    Notable practices include:</p>
+    <ul>
+      <span class="courier">-  Note the difference between the system clock and UTC.  For each timestamp provided, indicate whether UTC or local time is used.</span><br>
+      This is important in creating an accurate timeline leading to the subject of the investigation<br>
+      <span class="courier">-  Remove external avenues for change.</span><br>
+      This is important (and sometimes overlooked step) in preventing any bad actors from changing the evidence being collected.<br>
+      <span class="courier">-  Keep detailed notes.</span><br>
+      This is important in both tracking any potential changes that could occur to the system in the process of evidence collection, as well as protecting the collection procedures against later scrutiny.<br>
+      <span class="courier">-  Proceed from the volatile to the less volatile</span><br>
+      See below.<br>
+    </ul>
+
+    <h4>2.1 Order of Volatility</h4>
+    <p>This is the order of data, sorted by volatility, that is, likelihood to change. It is important to capture data that is most likely to change first, and then move on down the list.</p>
+    <ul class="courier">
+    -  registers, cache<br>
+    -  routing table, arp cache, process table, kernel statistics, memory<br>
+    -  temporary file systems<br>
+    -  disk<br>
+    -  remote logging and monitoring data that is relevant to the system in question<br>
+    -  physical configuration, network topology<br>
+    -  archival media<br>
+    </ul>
+
+    <h4>2.3 Privacy Considerations</h4>
+    <p>   RFC 3227 also outlines the privacy considerations that should be taken to prevent breaches of privacy policy.</p>
+    
+    <h4>2.4 Legal Considerations </h4>
+    <p>The Legal considerations outline the legal requirements that computer evidence needs to meet: Admissibility, Authenticity, Completeness, Reliability, Believability. </p>
+    
+    <h4>3.2 Collection Steps</h4>
+    <p>RFC 3227 outline the recommended steps for evidence collection. They are as follows:</p>
+    <ul class="courier">
+      -  Where is the evidence?  List what systems were involved in the incident and from which evidence will be collected.<br>
+      -  Establish what is likely to be relevant and admissible.  When in doubt err on the side of collecting too much rather than not enough.<br>
+      -  For each system, obtain the relevant order of volatility.<br>
+      -  Remove external avenues for change.<br>
+      -  Following the order of volatility, collect the evidence with tools as discussed in Section 5.<br>
+      -  Record the extent of the system's clock drift.<br>
+      -  Question what else may be evidence as you work through the collection steps.<br>
+      -  Document each step.<br>
+      -  Don't forget the people involved.  Make notes of who was there and what were they doing, what they observed and how they reacted.<br>
+     </ul>
+    
+    <h4>4.1 Chain of Custody</h4>
+    <p>As for all evidence, it is critical to maintain a record of the chain of custody for everything collected. This means documenting when it was initial acquired and by whom. And tracking who accessed or possessed it and for what duration of time. </p>
+
+
+  </div><!--container-->
+</body>
+
