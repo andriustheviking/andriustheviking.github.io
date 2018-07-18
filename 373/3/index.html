@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 2</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 3 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Malware Defense</h1>
+    </div>
+   
+<h3>Malware Lifecycle</h3>
+<p>There are four key malware dependencies, that is, four key pieces of malware that represent the malware lifecycle. For each step, there are different methods to achieve different goals. </p>
+<ul>
+<li>  First Contact<br>
+<ul><li>Browser: A browser can be exploited to download malware or run a script embedded in a webpage. These can be encountered as third-party advertisers running embedded scripts, hosted on a trusted webpage.</li>
+<li>Email: Emails represent a very large percent of malwares’ attack vector. Ransomware attacks have recently exploded in popularity among businesses, via emails disguised as clients or vendors.</li>
+<li>Downloaded software is still a common avenue for malware to infect a system. Users can download seemingly trustful executables that contain malware or adware. </li>
+<li>USBs, Network attacks and other attack vectors represent smaller percent of attacks, though they can be more complicated.</li>
+</ul></li>
+<li>Local Execution<br>
+<ul><li>Code signing is a method to ensure that a file hasn’t been altered by a third party, and confirms its vendor. However they can give users a false sense of security that the vendor is acting in good faith. As such, 16,000,000 signatures are considered compromised.</li>
+<li>Autorun: Malware that runs automatically in the background can perform all of its operations without the user’s consent or knowledge. Through our inspection of malware, we’ve seen that a PE file can easily change the registry so that it starts up at launch, or on a regular schedule.</li>
+</ul></li>
+<li>Establish Presence<br>
+<ul><li>The next stage for the malware is to establish its presence in the system. It will follow a number of steps to ensure its intended longevity and corrupt or install any number of files.</li>
+<li>Run on boot ensures that the malware is persistent, that it survives a reboot.</li>
+</ul></li>
+<li>Malicious Activity<br>
+<ul><li>The malware then executes its intent. It may harvest information, encrypt or delete data, or corrupt files. </li>
+<li>If the malware is intended to harvest information, it must make contact outside the system. This is commonly done through some network protocol like HTPP, email or FTP. </li>
+</ul></li>
+</ul>
+<h3>Defense</h3>
+<p>Luckily each one of these steps represent an opportunity for a defense, as we can work to block, detect and delete malware at each stage of its lifecycle.</p>
+<ul>
+<li>First Contact<br>
+<ul><li>Educate Users: Because much of first contact relies on some user action, education is a very effective tool to protect systems. Reminding users to double check emails with attachments could potentially prevent a ransomware attack.</li><li>Many tools have been developed to prevent infection. Script blockers can prevent harmful embedded scripts, and Firewalls can protect against suspicious traffic.</li>
+</ul></li>
+<li>Local Execution<br>
+<ul><li>Quarantining: AV software can quarantine suspicious files, and warn against execution.</li>
+<li>Code Signing Certificates: Just as code signing can be abused to provide a false sense of security, they can be used by AV software to easily filter large groups of code considered to be malicious.</li>
+</ul></li>
+<li>Establish Presence<br>
+<ul><li>AV file scanning commonly locates malware files and removes them. This can ensure the user that they do not have any malware present on their system.</li>
+</ul></li>
+<li>Malicious Activity<br>
+<ul><li>AV systems can be used to directly counter malicious activity before it occurs. For example, Anti-keyloggers can prevent malware from recording user’s keystrokes. Network detectors can check for suspicious activity, like a botnet attack or large sets of data being sent out.</li>
+</ul></li>
+</ul>
+
+
+<h1 class="title">Malware Analysis Blog</h1>
+<p> This week, we were tasked with finding malware among a set of four files. In addition to the previous tools, we used Cuckoo to analyze the process calls throughout its lifecycle. Though Cuckoo can be used to network multiple VMs together, it provided a lot of functionality to diagnose malware. </p>
+
+<h3>Keylogger</h3>
+<p>Using FileInsight and Cuckoo, I was able to determine the file with hash, <b>068D5B62254DC582F3697847C16710B7</b> to be malware. After both a static and dynamic analysis, it is reasonable to conclude that 068D infects a system with a keylogger and attempts to send its information via http requests. </p>
+
+<h3>Static Analysis</h3>
+<p>A string dump of the file showed a number of suspicious strings inside the file.  </p>
+
+<ul>
+  <li>First, we know the file is a portable executable, because its first two characters are MZ<br>
+  <img class="center" src="./img/static-mz.png">
+  </li>
+
+<li>Going through the file, we encounter a series of calls to keyboard layout functions:<br>
+  <img class="center" src="./img/static-keyboard.png">
+
+<span class="courier">GetKeyboardLayouList.q.SystemParametersInfoA...LoadKeyboardLayoutA.C.CopyImage</span> <br>
+These are Windows system calls that get the keyboard input.
+</li>
+
+<li>
+  We then see html calls to a suspicious website: <br>
+<img class="center" src="./img/static-html.png">
+HTTP request to: <span class="courier">http://%s:8080/spobao/GetTuPian.asphttph</span>/li></ul>
+
+<h3>Dynamic Analysis</h3>
+<p>Running the cuckoo to analyze the process we see the following actions:</p>
+
+<ul>
+  <li>Query c:\WIndows\system32\wm.ime></li>
+<li>Accesses LanguageConfiguration</li>
+<li>NTOpenKeyEx requests access to System\CurrentControlSet\Control\Keyboard Layouts</li>
+<li>NTEnumerateKey Appears to enumerate all the keys<br>
+  Then for each enumerated key index, it sets targetName to Target IME</li>
+<li>Opens a file:  <span class="courier">c:\del3627b.bat</span> </li>
+<li>Enumerates more keys</li>
+<li>Runs a cmd process:
+<ul>
+  <li>sets autorun
+<li>in \Registry\Machine\Software\Microsoft\Windows\Safer\CodeIdentifiers looks for hashes, paths and UrlZones
+<li>modifies the same bat file
+<li>it looks like it then sends information from del3627b.bat </ul>
+</li></ul>
+
+<h3>What can we conclude?</h3>
+<p>The program appears to enumerate the keyboard, presumably to log the keystrokes, then it sends the information to GetTuPian.asp via html request.</p>
+
+<h3>How do we get rid of it?</h3>
+
+<p>Luckily, we can target the file directly with the following yara signature:
+rule keylogger </p>
+<p class="courier">{ <br>
+  strings: <br>
+  $s1=”/pobao/GetTuPian.asp” <br>
+  $s2=”MZKERNEL32.DLL” <br>
+  condition: <br>
+  $s1 and $s2 at 0 <br>
+} <br>
+</p>
+
+<p>This searches for the specific phrase, /pobao/GetTuPian.asp, and then to make sure we’re not getting a false positive in some text file, we make sure the file starts with the string: MZKERNEL32.DLL.</p>
+
+<p>This will locate the problematic file immediately with no false positives. </p>
+
+
+
+  </div><!--container-->
+</body>
+
