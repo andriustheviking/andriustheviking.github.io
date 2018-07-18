@@ -67,7 +67,7 @@
 </ul></li>
 </ul>
 
-
+<div class="blog">
 <h1 class="title">Malware Analysis Blog</h1>
 <p> This week, we were tasked with finding malware among a set of four files. In addition to the previous tools, we used Cuckoo to analyze the process calls throughout its lifecycle. Though Cuckoo can be used to network multiple VMs together, it provided a lot of functionality to diagnose malware. </p>
 
@@ -78,31 +78,33 @@
 <p>A string dump of the file showed a number of suspicious strings inside the file.  </p>
 
 <ul>
-  <li>First, we know the file is a portable executable, because its first two characters are MZ<br>
-  <img class="center" src="./img/static-mz.png">
+  <li>First, we know the file is a portable executable, because its first two characters are MZ<br><br>
+  <img class="center" src="./img/static-mz.png"><br>
   </li>
 
 <li>Going through the file, we encounter a series of calls to keyboard layout functions:<br>
-  <img class="center" src="./img/static-keyboard.png">
-
+<br><div class="center">
+  <img class="center" src="./img/static-keyboard.png"><br>
 <span class="courier">GetKeyboardLayouList.q.SystemParametersInfoA...LoadKeyboardLayoutA.C.CopyImage</span> <br>
-These are Windows system calls that get the keyboard input.
+These are Windows system calls that get the keyboard input.</div>
+<br>
 </li>
 
 <li>
-  We then see html calls to a suspicious website: <br>
-<img class="center" src="./img/static-html.png">
-HTTP request to: <span class="courier">http://%s:8080/spobao/GetTuPian.asphttph</span>/li></ul>
+  We then see html calls to a suspicious HTTP request to: <span class="courier">http://%s:8080/spobao/GetTuPian.asphttph</span><br><br>
+<img class="center" src="./img/static-html.png"><br></li></ul>
 
 <h3>Dynamic Analysis</h3>
 <p>Running the cuckoo to analyze the process we see the following actions:</p>
 
 <ul>
-  <li>Query c:\WIndows\system32\wm.ime></li>
 <li>Accesses LanguageConfiguration</li>
 <li>NTOpenKeyEx requests access to System\CurrentControlSet\Control\Keyboard Layouts</li>
 <li>NTEnumerateKey Appears to enumerate all the keys<br>
-  Then for each enumerated key index, it sets targetName to Target IME</li>
+  <br><img class="center inside" src="./img/dynamic-enumeratekey.png"><br>
+  Then for each enumerated key index, it sets targetName to Target IME<br>
+<br><img class="center inside" src="./img/dynamic-enum2.png"><br>
+</li>
 <li>Opens a file:  <span class="courier">c:\del3627b.bat</span> </li>
 <li>Enumerates more keys</li>
 <li>Runs a cmd process:
@@ -118,9 +120,10 @@ HTTP request to: <span class="courier">http://%s:8080/spobao/GetTuPian.asphttph<
 
 <h3>How do we get rid of it?</h3>
 
-<p>Luckily, we can target the file directly with the following yara signature:
-rule keylogger </p>
-<p class="courier">{ <br>
+<p>Luckily, we can target the file directly with the following <b>Yara signature</b>:</p>
+<p class="courier" style="padding-left:200px">
+rule keylogger<br>
+{ <br>
   strings: <br>
   $s1=”/pobao/GetTuPian.asp” <br>
   $s2=”MZKERNEL32.DLL” <br>
@@ -133,6 +136,7 @@ rule keylogger </p>
 
 <p>This will locate the problematic file immediately with no false positives. </p>
 
+</div>
 
 
   </div><!--container-->

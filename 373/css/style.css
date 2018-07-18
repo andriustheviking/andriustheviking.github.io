@@ -24,3 +24,13 @@
     font-family: monospace;
     font-weight: bold;
 }
+
+.blog {
+    margin: 50px;
+    padding: 50px;
+    background-color: aliceblue;
+}
+
+.inside {
+	width: 100%
+}
