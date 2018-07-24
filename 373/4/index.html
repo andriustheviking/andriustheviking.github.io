@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 2</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 4 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Hacking</h1>
+    </div>
+   
+
+<p><b>Hacking</b> can be categorized into two methods:  <b>Software Vulnerabilities</b> and <b>Configuration Vulnerabilities</b></p>
+
+<ul><li><b>Software Vulnerabilities</b> are bugs from within the program. They are exploited by using or manipulating the system in a way it was not originally intended. Stack smashing and User-After-Free attacks target software  vulnerabilities.</li>
+<li><b>Configuration Vulnerabilities </b>are not bugs per say, they are instead weaknesses in a system due to misconfiguration or poor practice. This can be anything from not sanitizing user input to leaving passwords exposed for a bad actor to retrieve.</li></ul>
+
+<h4>Shellcode</h4>
+<ul><li><b>shellcode</b> is the piece of software delivered by an attacker that is run by the targeted system. It is called shellcode because it typically launches a command terminal, though it can be any type of code. The shellcode is intended to take advantage of permissions and access granted on a user’s system</ul>
+<br><br>
+
+<h2>Stack Smashing</h2>
+<p>Stack Smashing, or stack stuffing, is a type of buffer overrun attack. The intent of stack smashing is to fill up a thread’s stack, override the return stack’s return address, and insert shell code at the new return address location. </p>
+
+
+<h3>Stack Frame </h3>
+<p>To understand stack smashing, let’s first review the stack frame.<br>
+In x86 architecture, a stack frame is organized the following way:</p>
+
+<ol>
+  <li>At the top are the function parameters. These are tracked by referencing the EBP, and their distance from it in 4 Byte chunks. So EBP+4 will be the parameter stored just above the EBP. EBP+8 will be the parameter above that and so on.</li>
+  <li>Under them is the return address of the function in the program instructions. This is where the instruction pointer (EIP) points to in the program once the function call is finished and the stack frame is popped off the stack.</li>
+  <li>Under the return address is the saved base pointer (EBP). This location acts as the primary reference point of the stack frame. Parameters sit above the EBP and local variable sit below it. The location also stores the location of the EBP for the stack frame above it. When this frame is popped off the stack, the EBP retrieves the saved EBP of the stack above it, so it can access the variables of the new (older) stack.</li>
+  <li>Then we have the local variables. Like the parameters, these are referenced via their relationship to the EBP.</li>
+  <li>The Stack Pointer (ESP) register will point to the end of the stack, where a new stack frame will start, if necessary.</li>
+</ol>
+<p>
+As bytes are overwritten in a stack smash, the memory will overflow in ascending order. This means if we overflow a local variable, it will overwrite any other local variables above it, then it will overwrite the saved EBP, then the return address, then the function parameters and then whatever stack frame is above the current one. </p>
+
+<p>If we overwrite enough data, we can insert our shellcode into the stack buffer above our stack frame. When the frame is popped off the stack, the ESP will point at our inserted code. However, we have an issue. Due to modern security technique call Address Space Layout Randomization (ASLR) we can’t hardcode the exact location of the ESP into the return address. </p>
+
+<p>However, there’s another exploit we can utilize called trampolining. Trampolining is the process of jumping the EIP to a specific location. The assembly instruction JMP ESP ( ffe4 in hex) tells the EIP to jump to the location of the ESP.  And while ASLR prevents us from hardcoding the location of the ESP, we can find the hardcode location of the JMP ESP location. By inserting that location into the return address, the EIP will point to the JMP ESP location when the stack frame gets popped. Once code execution begins again, the EIP will then point to the same location as the ESP. At that point we will have full control of the EIP, and the system will execute our shellcode.</p>  
+
+<h3>Protections</h3>
+<p>Luckily, there are ways to protect against stack smashing.</p>
+<ul>
+  <li><b>Canary value</b><br>
+  A stack canary can be used to check for a stack overflow. It works by storing a random integer value just before the return address. If the stack buffer overflow overwrites the return address, it will necessarily have to overwrite the canary. The system then checks to see if the canary value is unchanged, before inserting the return value into the EIP register. If it has changed, we can be assured that the return value is compromised.</li>
+  <li><b>Nonexecutable Stack</b><br>
+  By enforcing a memory policy of non-executable stack, we can prevent the EIP from executing instructions in stack memory. However there are some work arounds. The first is to overwrite memory out of the stack. Another is to point the EIP to a chain of library calls, so that it executes valid calls outside of memory.</li>
+</ul>
+
+
+
+
+
+  </div><!--container-->
+</body>
+
