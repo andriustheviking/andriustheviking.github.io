@@ -33,23 +33,25 @@
 <h3>The Kernel</h3>
 <p>The kernel acts as the interface between an application and the computer. It handles communication between devices and applications. It also provides an application’s instructions to the CPU, and handles memory allocation. </p>
 
-<p>The kernel operations in a protected space in memory so that applications cannot directly interfere with it. However, a kernel’s memory space is flat, meaning there are no security separation from inside the memory allocation itself. This means any kernel driver can access any part of a kernel’s memory. </p>
-
 <p>There doesn’t have to be a single kernel for an entire OS. Microkernels can be designated to handle only specific needs of a system. This would lessen the memory footprint of the kernels and provides for easier maintenance. Windows OS use a hybrid of both.</p>
+
+<p>The kernel operates in a protected space in memory so that applications cannot directly interfere with it. However, a kernel’s memory space is flat, meaning there are no security separation from inside the memory allocation itself. This means any kernel driver can access any part of a kernel’s memory. This can open up a kernel's memory to exploits. </p>
+
 
 <h3>Kernel Rootkits</h3>
 <p>Because kernels are responsible for all communication between applications, devices, storage and the CPU, they have full privileges. This makes them a prime target for malware. Kernel rootkits act by manipulating the kernel, often through <b>device drivers</b>, which can carry the same privileges as the kernel. </p>
 
 <h3>Hooking</h3> 
-<p><b>Hooking</b> is the technique of altering a system call by intercepting the bytes of an internal call and directly altering it. Hooking techniques can be used for many different valid reasons, but rootkits use them to hide or obscure malware. The kernel uses tables like the Import Address Table and the System Service Descript Table when calling DLLs and operating system functions. A device driver rootkit can modify these tables directly, so that they point to functions within the rootkit’s instructions. These can then filter the return values. </p>
+<p><b>Hooking</b> is the technique of altering a system call by intercepting the bytes of an internal call and directly altering it. Hooking techniques can be used for many different valid reasons, but rootkits use them to hide or obscure malware. </p>
+<p>The kernel uses tables like the <b>Import Address Table (IAT)</b> and the <b>System Service Descript Table (SSDT)</b> when calling DLLs and operating system functions. A device driver rootkit can modify these tables directly, so that they point to functions within the rootkit’s instructions. These can then filter the return values. </p>
 
-<p>For example, say a rootkit hooks <b>NTQueryDirectoryFile</b>. This routine returns information about files in a given directory. AV software could use this routine when searching for malware signatures. When the AV requests the routine, the kernel retrieves the modified address, that points to malware. When called, the rootkit calls NTQueryDirectoryFile and filters the results. However, if the rootkit detects that the routine returned file information about the malware its obfuscating, it would simply block the return value, or supply a value to another benign file.</p>
+<p>For example, say a rootkit hooks the <b>NTQueryDirectoryFile</b> via its address. The NTQueryDirectoryFile routine returns information about files in a given directory. AV software might use it when searching for malware signatures. When the AV requests the routine, the kernel retrieves the modified address. However because it's hooked, that address now points to a part of the rootkit. When called, the rootkit calls NTQueryDirectoryFile and filters the results. If the rootkit detects that the routine will return file information about itself, or some other piece of malware, it could simply block the return value, or supply a values from another benign file.</p>
 <br>
 <h2>Bootkits</h2>
-<p>A bootkit manipulates the <b>Master Boot Record (MBR)</b> of a hard drive or bootable device. The bootkit is then activated at boot up, but only if the system is booted from an infected disk. This means that the bootkit is loaded before the kernel, and can bypass operating system security checks. However, because of this, the bootkit often doesn’t try to hide itself, so directly querying a drive can reveal the bootkit.</p>
+<p>A bootkit manipulates the <b>Master Boot Record (MBR)</b> of a hard drive or bootable device. The bootkit is then activated at boot up, but only if the system is booted from an infected disk. This means that the bootkit is loaded before the kernel, and can bypass operating system security checks. However, because of this, the bootkit often doesn’t try to hide itself, so directly querying a drive from a clean system can reveal the bootkit.</p>
 
 <h4>StealthMBR rootkit</h4>
-This bootkit/rootkit malware operated by hiding the bootkit via a hook to the hard disk driver.
+<p>This bootkit/rootkit malware operated by hiding the bootkit via a hook to the hard disk driver.</p>
 
 <p>A bootable hard drive will be divided into sectors where the MBR sits at index 0, is 512 Bytes, and ends with the two byte signature, 55 AA. When infected, the bootkit will replace the MBR and write from sector 0 to 62, installing the rootkit at 60 and 61, and copying the original MBR at 62. When booted, the bootkit will install the rootkit into memory, and then call the original MBR. In order to hide the bootkit, the rootkit would hook into the hard disk driver. If a read was requested on the drive, the rootkit would simply skip to the original MBR stored at sector 62. </p>
 <br>
