@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 2</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 5 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Rootkits</h1>
+      <p>A <b>Rootkit</b> is something which actively highes the presence of malware.</b></p>
+    </div>
+
+<h2>Kernel Rootkits</h2>
+<p>Kernel rootkits take advantage of an OS's <b>kernel</b> to hide itself. To understand kernel rootkits, we should first review the Window’s kernel. </p>
+<h3>The Kernel</h3>
+<p>The kernel acts as the interface between an application and the computer. It handles communication between devices and applications. It also provides an application’s instructions to the CPU, and handles memory allocation. </p>
+
+<p>The kernel operations in a protected space in memory so that applications cannot directly interfere with it. However, a kernel’s memory space is flat, meaning there are no security separation from inside the memory allocation itself. This means any kernel driver can access any part of a kernel’s memory. </p>
+
+<p>There doesn’t have to be a single kernel for an entire OS. Microkernels can be designated to handle only specific needs of a system. This would lessen the memory footprint of the kernels and provides for easier maintenance. Windows OS use a hybrid of both.</p>
+
+<h3>Kernel Rootkits</h3>
+<p>Because kernels are responsible for all communication between applications, devices, storage and the CPU, they have full privileges. This makes them a prime target for malware. Kernel rootkits act by manipulating the kernel, often through <b>device drivers</b>, which can carry the same privileges as the kernel. </p>
+
+<h3>Hooking</h3> 
+<p><b>Hooking</b> is the technique of altering a system call by intercepting the bytes of an internal call and directly altering it. Hooking techniques can be used for many different valid reasons, but rootkits use them to hide or obscure malware. The kernel uses tables like the Import Address Table and the System Service Descript Table when calling DLLs and operating system functions. A device driver rootkit can modify these tables directly, so that they point to functions within the rootkit’s instructions. These can then filter the return values. </p>
+
+<p>For example, say a rootkit hooks <b>NTQueryDirectoryFile</b>. This routine returns information about files in a given directory. AV software could use this routine when searching for malware signatures. When the AV requests the routine, the kernel retrieves the modified address, that points to malware. When called, the rootkit calls NTQueryDirectoryFile and filters the results. However, if the rootkit detects that the routine returned file information about the malware its obfuscating, it would simply block the return value, or supply a value to another benign file.</p>
+<br>
+<h2>Bootkits</h2>
+<p>A bootkit manipulates the <b>Master Boot Record (MBR)</b> of a hard drive or bootable device. The bootkit is then activated at boot up, but only if the system is booted from an infected disk. This means that the bootkit is loaded before the kernel, and can bypass operating system security checks. However, because of this, the bootkit often doesn’t try to hide itself, so directly querying a drive can reveal the bootkit.</p>
+
+<h4>StealthMBR rootkit</h4>
+This bootkit/rootkit malware operated by hiding the bootkit via a hook to the hard disk driver.
+
+<p>A bootable hard drive will be divided into sectors where the MBR sits at index 0, is 512 Bytes, and ends with the two byte signature, 55 AA. When infected, the bootkit will replace the MBR and write from sector 0 to 62, installing the rootkit at 60 and 61, and copying the original MBR at 62. When booted, the bootkit will install the rootkit into memory, and then call the original MBR. In order to hide the bootkit, the rootkit would hook into the hard disk driver. If a read was requested on the drive, the rootkit would simply skip to the original MBR stored at sector 62. </p>
+<br>
+<h2>Rootkit detection</h2>
+<p>Because Kernel level rootkits and bootkits operate by manipulating the queries used to find files on a system, they are necessarily difficult to detect. If an operating system’s routines are compromised, then one can’t expect to use those routines to find the rootkits. </p>
+
+<p>Tools like <b>LiveKD</b> and <b>ProcessHacker</b> can look at kernel memory and highlight suspicious activity. Since kernel process memory exists around 0x70000000 and 0x80000000, kernel processes in other locations can be flagged as suspicious. Additionally, unnamed processes with full privileges are also suspicious. Additionally, rootkits can be checked by searching through kernel tables for hooks, indicated by suspicious addresses.</p>
+
+<p>For bootkits, booting up from a known clean booter can reveal a bootkit hidden on a disk. A similar approach can be taken with kernel memory, by comparing the difference between memory states of two different times. </p>
+
+
+
+
+
+
+  </div><!--container-->
+</body>
+
