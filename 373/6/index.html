@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 6</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 6 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Network Security</h1>
+    </div>
+
+    <h2>Network Threats</h2>
+	<p>So far, we’ve discussed the lifespan of security threats on an operating system: the different kinds of malware and exploits that can occur on a closed system. A network, however not only has to consider the delivery of threats to internal systems, but also can be targeted and exploited directly by bad actors.
+	</p>
+	<br>
+
+    <h3>Denial of Service Attacks</h3>
+    <p>These are (relatively) direct attacks on a system with the intent of bringing down a network or server. It’s achieved by overloading a target system with too many requests for the system to properly handle. The effect on the target can vary from slow service, inability to access the service, and possibly even crashing servers. </p>
+    <p><b>A Distributed Denial of Service (DDoS)</b> attack uses a botnet to perform a DoS attack from multiple different sources. This both increases the rate of requests, and more importantly, makes the attack more difficult to detect, as distributed attack requests can look the same as a benign flooding of traffic. </p>
+<br>
+    <h3>Man in the Middle Attacks</h3>
+    <p>Man in the middle attacks are a class of attacks that use an exploit that exists within the network itself to intercept network traffic. Exploits can exist on different network layers and each operate very differently.  MITM attacks can be pernicious as an attacker can both read and modify data without direct detection by either end user.</p>
+    <br>
+
+    <h4>Address Resolution Protocol Poisoning</h4>
+    <p>ARP Poisoning is a Link Layer network attack in which an attacker attempts to spoof a network into adopting a attacker’s MAC address as the MAC address of a host, often the subnet gateway. Because ARP is stateless, devices will overwrite their ARP tables any time a new ARP reply is sent on the network. ARP poisoning, can therefore occur by overriding the network with the spoofed MAC address for the IP destination.</p>
+    <br>
+
+    <h4>TCP Hijacking</h4>
+    <p>TCP Hijacking occurs when an attacker spoofs a TCP packet from an established connection, which then causes the reply to be sent to the attacker, whereby dropping the original sender. This is done by  The attacker can either act as an intermediary between the hosts, or continue the connection as the new end user.</p>
+<br>
+    <h2>Network Defense</h2>
+
+    <p>Network defences can exist at any of the OSI layers in a network.</p>
+
+    <h3>DMZ</h3>
+    <p>The DMZ (De-Militarized Zone) is a subnet that sits between an untrusted outside network and protected local network. It is the first layer of nodes in the network encountered before communications are routed through the firewalls to their destination. Having this extra layer provides an extra step in network defense and allows for potential early response before an attack can hit nodes connected directly to protected devices.
+    </p>
+
+    <h3>Firewall</h3>
+    <p>Firewalls are the first line of defense for networks, and act as a pass-through for network traffic. Traditional firewalls operate through packet filtering, state inspection and policy to protect networks.</p>
+        <ul><li>Packet Filtering occurs on the protocol layer. It operates by inspecting network packets coming in and out of the network. Filtering can be done by comparing source, destination, protocols and ports against a ruleset, and dropping or rejecting flagged packets.</li>
+        <li>Stateful Inspection occurs on the transport layer. It monitors the state of TCP and UDP communications over time, so that it can determine the potential safety of a connection.</li>
+        <li>Policy refers to different rules applied to communications directed to different parts of the local network.</li> </ul>
+
+    <h3>Next-Gen Firewalls</h3>
+    <p>Next-Gen firewalls implement the same protections as standard firewalls, but include and Intrusion Protection System, Application level protection, and encryption inspection.
+    </p>
+
+
+  </div><!--container-->
+</body>
+
