@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 7</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 7 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Web Security</h1>
+      <p>As opposed Network Security, web security focuses on the application layer of the OSI Network layers.</p>
+    </div>
+
+
+    <h2>Web Browser</h2>
+  <p>  As the web browser has become more complex, its attack surface has increased. Plugins and 3rd-Party software create more opportunities for exploits to be used. And attacks don’t necessary need to come from the web. More information is now stored within the browser, often for the sake of convenience, as with website credentials. So malware running locally on a machine might target its own browser for its sensitive data.</p> 
+  <br>
+    <h4>JavaScript</h4>
+    <p>Originally, JavaScript was used almost exclusively for page layout and design. Now it’s instrumental in most websites, to make real-time requests, interact with plugins and directly navigate the user. Because it’s generally not compiled, code can be obfuscated with tedious calls or encoding. There are even programs that will deliberately alter a code’s appearance to prevent code theft, or reduce size. Unfortunately this makes hashing a volatile script a challenge, and with multiple sources in a url request, detecting malicious code can be almost impossible.</p>
+<br>
+    <h4>Browser Defense</h4>
+    <p>To protect against threats, modern browsers have adopted multiple defense mechanisms. CORS (Cross Origin Resource Sharing) is a browser policy intended to prevent malicious scripts from one website making requests to another url. More modern browsers implement Hypervisor / Virtual Machine environments to create a sandbox environment for websites. Ideally all information would be segmented between each browser. And while this would improve security on the browser, the demands of modern convenience make it impractical.</p>
+    <br>
+    <h2>Web Attacks</h2>
+    
+    <h3>User-Level Attacks</h3>
+    <p>Users are the weakest link in web security. Unfortunately (or fortunately, depending on who you ask), humans will always fall prey to scams, enter a compromised web domain and download malware directly to their computer. Much of web security is reacting to, and correcting the mistakes of the user. </p>
+
+    <p>User online behavior is a strong indicator that they will initiate an attack. Impatient, ‘click-aholics’ are prone to clicking links the direct to a malicious website. However an APT (Advanced Persistent Threat) could even target security professionals through social media catfishing.  </p>
+
+    <br>
+    <h3>Attack Exploits</h3>
+    <p>Cross-site scripting, Cross-site request forgery and SQL injections are common methods for attacks to be delivered over the web.</p>
+    <br>
+    <h4>Cross-Site Scripting (XSS)</h4>
+    <p>This is a technique whereby an attacker injects malicious client-side script into a trusted website. This can be either <b>Reflected</b> or <b>Persistent</b>. </p>
+
+    <p><b>Reflected XSS</b> are generated via the request made for the targeted website. HTTP queries are a common, basic form of this attack. A user can insert malicious code into a link with a query, which could then be rendered onto the rendered website. If the query is not validated by the server, it would render the script as executable code, and the user’s browser would execute it.</p>
+
+    <p><b>Persistent XSS</b> attacks are malicious scripts stored on a databased, which are then served to targeted users. Because the script is stored within the target system’s database, a link to an XSS exploit would be undetectable, and it could persist, and be executed by any normal request to the server.</p>
+    <br>
+    <h4>Cross-Site Request Forgery</h4>
+    <p>Similar to an XSS, these attacks use malicious scripts to manipulate trust between a system and its user. However, where XSS attacks take advantage of a user’s trust in a service, cross-site request forgeries take advantage of a system’s trust in a user. That is, it uses a user’s session or certificate to make a request to the targeted system on behalf of the user without their knowledge. </p>
+    <br>
+    <h4>SQL Injection</h4>
+    <p>SQL injections are another common form of attack. However instead of javascript targeting client activity, these attacks use SQL commands to target a system’s database. If a website does not appropriately sanitize their input, an attacker could inject malicious code to manipulate the database. The effect of this exploit varies by the type of database, but it could include retrieving all information in the database, deleting the database, or if it’s MsSQL even access other files in the system.</p>
+
+  </div><!--container-->
+</body>
+
