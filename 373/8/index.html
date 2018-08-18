@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS 373 Week 8</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>CS 373 Week 8 Write-Up</h2>
+      <h4>by Andrius Kelly</h4>
+    </div>
+    <div class="title">
+      <h1>Email and Message Security</h1>
+    </div>
+
+    <h2>Spam</h2>
+    <p>Email spam covers a broad category of unsolicited messages sent via email. It can be real or falsely advertised products, a 419 fraud or phishing attempt. Spam emails are primarily intended to defraud some small percentage of recipients. They succeed in through a sheer numbers game: About 54 billion spam messages are sent every day, according to a 2014 Cyberoam report. Because of these astronomical numbers, detecting and blocking spam is a very important business in improving the usability of the internet.</p>
+    <br>
+    <h3>Phishing</h3>
+    <p>Phishing is an attempt to get personal information or payment through some fraudulent email, often sent out to multiple email accounts. Because of the ease of copying website markup, it can often be very difficult to distinguish a phishing email from a real one.</p>
+    <p><b>Spear Phishing</b> is targeted at an individual or company. It can involve more effort and research, however it is much more successful than blanket spam phishing and accounts for 91% of attack, according to Wikipedia. The Anthem data breach in 2015 was done via initial spear phishing. </p>
+
+    <h3>Botnets</h3>
+    <p>A Botnet is a number of internet-connected devices infected with some sort of software in order to perform tasks on a mas scale. They can either be organized in a client-server model or peer-to-peer. Botnets have become integral tools for malicious actors throughout the web. In addition to DDoS attacks, Botnets are used for email spamming. This allows spam emails to be sent from many different IPs and home networks, so as to bypass filtering from an Realtime Blackhole List</p>
+    <br>
+    <h2>Filtering</h2>
+    <p>With billions of spam emails sent every day, it is extremely important to filter out spam from ham (normal emails). Otherwise email accounts would be overwhelmed by useless emails. And given that the amount of emails are in the billions, even a 99% effectiveness rate would let  through millions of spam emails. As a result, services that filter email spam must use a host of different methods to block spam.</p>
+
+    <h3>Real-time Blackhole List </h3>
+    <p>Real-time Blackhole List (RBL) or Domain Name System-based Blackhole List (DNSBL) is a “blacklist” of IP addresses associated with email spam. Email filter systems then check all incoming messages against these blacklists, in order to quickly filter. It’s referred to as a blackhole, because the filter does not send a response to the spammer. These lists can be controversial as technically anyone can compile their own blackhole list, and trusting which lists are comprehensive and accurate is not always easy. Sometimes legitimate IPs can end up on these lists.</p>
+
+    <h3>Bayesian Filtering Heuristic</h3>
+    <p>Keyword filtering and heuristic algorithms can be used to filter spam as it is received by a client. Bayesian filtering is a technique that reads through the email and its header and uses a probabilistic approach for predicting whether an email is spam.</p>
+
+  </div><!--container-->
+</body>
+
