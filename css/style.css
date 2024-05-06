@@ -1,0 +1,238 @@
+/*!
+ * Start Bootstrap - Logo Nav HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+html{
+    height: 100%;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: blue;
+}
+
+body{
+  font-family: Georgia;
+  height: 100%;
+  background-color: #f1f0ed;
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}
+
+.center-text{
+  text-align: center;
+}
+
+.col-decoration{ 
+  border-bottom: 1px black solid;
+  height: 30px;
+  margin-bottom: 30px;
+}
+
+.desktop {
+display: none;
+}
+
+.nav > li > a {
+  padding: 5px 15px;
+}
+
+.navbar-fixed-top .navbar-brand {
+  padding: 0 15px;
+}
+
+
+[class*=col-]{
+
+}
+
+
+.video-container {
+    clear: both;
+    position: relative;
+     /* keeps the aspect ratio */
+    padding-bottom: 56.20%; 
+     /* fine tunes the video positioning */
+    overflow: hidden;
+}
+
+.vimeo {
+    padding-bottom: 53.50%; 
+     /* fine tunes the video positioning */
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.webdesign-image{
+    width: 100%;
+}
+
+.center-vertical {
+  overflow: hidden;
+  position: relative;
+  top: -75px;
+
+  min-height: 100%;  /* Fallback for vh unit */
+
+  /* Make it a flex container */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex; 
+  
+  /* Align the bootstrap's container vertically */
+    -webkit-box-align : center;
+  -webkit-align-items : center;
+       -moz-box-align : center;
+       -ms-flex-align : center;
+          align-items : center;
+  
+  /* In legacy web browsers such as Firefox 9
+     we need to specify the width of the flex container */
+  width: 100%;
+  
+  /* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
+     hence the bootstrap's container won't be aligned to the center anymore.
+  
+     Therefore, we should use the following declarations to get it centered again */
+         -webkit-box-pack : center;
+            -moz-box-pack : center;
+            -ms-flex-pack : center;
+  -webkit-justify-content : center;
+          justify-content : center;
+}
+
+.title{
+  margin: 0;
+}
+
+#banner-img{
+  height: 100px;
+  padding-left: 20px;
+  position:relative;
+  left:-185px;
+}
+
+#navbar-container{
+  margin: 0px;
+}
+
+.navbar, .navbar-inverse {
+  background-color: #f1f0ed;
+  border-style: thin;
+}
+
+#banner{
+  margin: 0;
+}
+
+
+@media(min-width:768px) {
+  
+  body {
+      padding-top: 50px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+  }
+
+  .container-fluid{
+      margin: 0px 50px;
+  }
+
+  .center-vertical{
+    top:-50px;
+  }
+
+  #container-frontpage{
+    margin:0px;
+  }
+
+  .navbar-fixed-top .navbar-brand {
+      padding: 15px 0;
+  }
+  .navbar, .navbar-inverse {
+    background-color: #f1f0ed;
+    border-style: none; 
+  }
+
+  .navbar{
+    background-color: #f1f0ed
+  }
+
+  #banner-img{
+    height: 100%;
+    padding:0;
+    position:relative;
+    left:-340px;
+  }
+
+  #banner{
+    margin-bottom: 15px;
+  }
+
+  #main-link-webdesign{
+    float:right;
+  }
+
+  #main-link-animation{
+    float:left;
+  }
+
+}
+
+@media(min-width:992px) {
+
+  .col-decoration{
+    margin-bottom: 30px 0px;
+  }
+
+  .mobile{
+      display:none;
+  }
+
+  .desktop {
+      display: inline;
+  }
+
+  .row-spacer {
+    margin-bottom: 30px;
+  }
+
+
+  .video-description{
+      margin-top: 50px;
+  }
+
+}
+
+@media(min-width:1170px){
+  
+  .video-description{
+      margin-top: 100px;
+  }
+
+}
+
+.hovershow {
+	display:none;
+}
+
+.hoverme:hover .hovershow{
+	display:block; 
+}
+
+.hoverme:hover .hoverhide{
+	display:none;
+}
